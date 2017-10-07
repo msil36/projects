@@ -1,0 +1,18 @@
+<ui:composition	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	
+	<h:form>
+		<h:commandLink action="#{internacionalizacaoBean.alterarIngles}" title="Inglês">
+			<h:graphicImage value="/imagens/usa.png" styleClass="bandeira"/>
+		</h:commandLink>
+		<h:commandLink action="#{internacionalizacaoBean.alterarPortugues}" title="Português">
+			<h:graphicImage value="/imagens/bra.png" styleClass="bandeira"/>
+		</h:commandLink><br/>
+	</h:form>
+	
+	#{msg['footer.msg']}<br/>
+	<a href="http://www.algaworks.com">www.algaworks.com.br</a>
+	
+</ui:composition>

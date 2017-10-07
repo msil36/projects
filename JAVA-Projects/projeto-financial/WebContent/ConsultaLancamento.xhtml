@@ -1,0 +1,101 @@
+<ui:composition template="/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	
+	<ui:define name="titulo">#{msg.entries}</ui:define>
+		
+	<ui:define name="conteudo">
+		<h:outputStylesheet library="css" name="consulta-lancamentos.css"/>	
+		<h1>#{msg.entries}</h1>
+
+		<h:form id="frm">
+			
+			<h:button value="#{msg.new_entry}" outcome="CadastroLancamento"
+				rendered="#{request.isUserInRole('cadastro')}"/>
+			
+			<h:messages showDetail="false" showSummary="true"
+				styleClass="form-messages" errorClass="error"
+				infoClass="info"/>
+
+			<h:dataTable var="lancamento" value="#{consultaLancamentoBean.lancamentos}"
+				width="100%" styleClass="grid" headerClass="cabecalho" rowClasses="cor-sim, cor-nao"
+				columnClasses="tipo, pessoa, descricao, valor, vencimento, pagamento, situacao, acoes">
+				
+				<h:column>
+					<h:graphicImage value="/imagens/despesa.png" rendered="#{lancamento.tipo eq 'DESPESA'}"/>
+					<h:graphicImage value="/imagens/receita.png" rendered="#{lancamento.tipo eq 'RECEITA'}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						#{msg.person}
+					</f:facet>
+					
+					<h:outputText value="#{lancamento.pessoa.nome}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						#{msg.description}
+					</f:facet>
+					
+					<h:outputText value="#{lancamento.descricao}"/>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						#{msg.amount}
+					</f:facet>
+				
+					<h:outputText value="#{lancamento.valor}" styleClass="#{lancamento.tipo.toString().toLowerCase()}">
+						<f:convertNumber locale="pt_BR" currencySymbol="R$" type="currency"/>
+					</h:outputText>
+				</h:column>
+			
+				<h:column>
+					<f:facet name="header">
+						#{msg.expiration}
+					</f:facet>
+					
+					<h:outputText value="#{lancamento.dataVencimento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						#{msg.payment}
+					</f:facet>
+					<h:outputText value="#{lancamento.dataPagamento}">
+						<f:convertDateTime pattern="dd/MM/yyyy"/>
+					</h:outputText>
+				</h:column>
+				
+				<h:column>
+					<f:facet name="header">
+						#{msg.situation}
+					</f:facet>
+					
+					<h:outputText value="#{msg.paid}" rendered="#{lancamento.pago}"/>
+					<h:outputText value="#{msg.open}" rendered="#{not lancamento.pago}"/>
+				</h:column>
+				
+				<h:column rendered="#{request.isUserInRole('cadastro')}">
+					<h:link outcome="CadastroLancamento" title="Editar">
+						<h:graphicImage value="/imagens/editar.png"/>
+						<f:param name="codigo" value="#{lancamento.codigo}"/>
+					</h:link>
+					
+					<h:commandLink action="#{consultaLancamentoBean.excluir}" title="Excluir">
+						<h:graphicImage value="/imagens/excluir.png"/>
+						<f:setPropertyActionListener value="#{lancamento}" target="#{consultaLancamentoBean.lancamentoSelecionado}"/>
+						<f:ajax render="@form"/>
+					</h:commandLink>
+				</h:column>
+			</h:dataTable>
+		</h:form>
+	</ui:define>			
+</ui:composition>	
+		

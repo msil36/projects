@@ -1,0 +1,16 @@
+td.nome {
+	width: 200px;
+}
+
+td.tipo {
+	width: 100px;
+	text-align: center;
+}
+
+td.ramo-atividade {
+
+}
+td.acao {
+	width: 40px;
+	text-align: center;
+}

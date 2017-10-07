@@ -1,0 +1,32 @@
+body {
+    min-height: 100vh; /*Utiliza 100% da largura*/
+    
+    background-color: #ccc; /*cor de findo*/
+    background-image: url('https://unsplash.it/g/1500/800?random'); /*imagem aleatoria de fundo*/
+    /* <-------COVER------>
+    A imagem "cobre" toda a largura ou a altura do recipiente. Quando a imagem e
+    contentores têm diferentes dimensões, a imagem é cortada para a
+    esquerda / direita ou superior / inferior
+    */
+    background-size: cover;
+    background-position: center center;
+    
+}
+
+.login-form {
+    margin-top: 50vh;
+    padding: 20px 30px;
+    background-color: rgba(0, 0, 0, .9); /* coloca cor preta com transparência 90% */
+    color: #fff; /*cor da fonte branca*/
+
+    transform: translateY(-50%); /*centraliza no eixo y*/
+}
+
+.login-form h1 {
+    margin: 0px 0px 5px;
+}
+
+.login-form h2 {
+    margin: 0px 0px 30px;
+    font-size: 1em;
+}
